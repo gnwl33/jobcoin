@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Object {
+  "children": Array [
+    <LineChart
+      chartConfig={
+        Object {
+          "backgroundGradientFrom": "rgba(0,0,0,0)",
+          "backgroundGradientFromOpacity": 0,
+          "backgroundGradientTo": "rgba(0,0,0,0)",
+          "backgroundGradientToOpacity": 0,
+          "color": [Function],
+          "fillShadowGradient": "#65DEFA",
+          "propsForDots": Object {
+            "r": "5",
+          },
+          "strokeWidth": 2,
+        }
+      }
+      data={
+        Object {
+          "datasets": Array [
+            Object {
+              "color": [Function],
+              "data": Array [
+                50.35,
+                20.25,
+              ],
+              "strokeWidth": 2,
+            },
+          ],
+          "labels": Array [],
+        }
+      }
+      formatYLabel={[Function]}
+      height={250}
+      onDataPointClick={[Function]}
+      style={
+        Object {
+          "marginBottom": -30,
+          "marginLeft": -7,
+          "marginTop": 20,
+        }
+      }
+      width={750}
+      withHorizontalLabels={true}
+      withInnerLines={false}
+      withOuterLines={false}
+      withShadow={false}
+      withVerticalLabels={false}
+    />,
+    <View>
+      <Text
+        style={
+          Object {
+            "fontSize": 18,
+          }
+        }
+      >
+        20.25 - Apr 23, 2:25PM
+      </Text>
+    </View>,
+  ],
+  "testID": "lineChart",
+}
+`;
