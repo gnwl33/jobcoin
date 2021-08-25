@@ -11,7 +11,7 @@ import {
   ChartPathProvider,
   monotoneCubicInterpolation,
 } from '@rainbow-me/animated-charts';
-import 'react-native-reanimated';
+// import 'react-native-reanimated';
 
 const width = Dimensions.get('window').width;
 
@@ -51,7 +51,6 @@ const HistoryGraph = ({userInfo}: HistoryGraphProps) => {
   const chartData: {x: number; y: number}[] = [];
   const dataLength = mappedTransactions.length;
   const chartDates: string[] = [];
-  console.log(mappedTransactions);
 
   mappedTransactions?.forEach((transaction, index) => {
     const {amount, timestamp} = transaction;
@@ -132,13 +131,16 @@ const s = StyleSheet.create({
   balanceLabel: {
     fontSize: 21,
     marginTop: 35,
+    color: 'black',
   },
   balanceAmount: {
     fontSize: 50,
+    color: 'black',
   },
   date: {
     fontSize: 17,
     marginTop: 10,
     marginBottom: 20,
+    color: 'black',
   },
 });

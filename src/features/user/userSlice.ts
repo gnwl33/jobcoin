@@ -14,7 +14,6 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     userUpdated: (state, action: PayloadAction<string>) => {
-      console.log(action.payload);
       state.value = action.payload;
     },
   },
