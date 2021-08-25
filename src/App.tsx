@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 import {Colors as c} from './styles';
-import AppContext from './utils/AppContext';
+// import AppContext from './utils/AppContext';
 import SignIn from './screens/signin/SignIn';
 import Account from './screens/account/Account';
 import {RootStackParamList} from './utils/types';
+import store from './app/store';
+import {Provider as ReduxProvider} from 'react-redux';
 
 const theme = {
   ...DefaultTheme,
@@ -23,12 +25,10 @@ const theme = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
-  const [user, setUser] = useState('');
-
   return (
     <SafeAreaProvider>
       <PaperProvider theme={theme}>
-        <AppContext.Provider value={{user, setUser}}>
+        <ReduxProvider store={store}>
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{
@@ -39,7 +39,7 @@ const App = () => {
             </Stack.Navigator>
             <Toast ref={ref => Toast.setRef(ref)} />
           </NavigationContainer>
-        </AppContext.Provider>
+        </ReduxProvider>
       </PaperProvider>
     </SafeAreaProvider>
   );

@@ -12,18 +12,24 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@rainbow-me/animated-charts": "^1.0.0-alpha.5",
     "@react-navigation/native": "*",
     "@react-navigation/native-stack": "*",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@types/react-redux": "^7.1.18",
     "moment": "*",
     "react": "17.0.1",
     "react-native": "0.64.1",
-    "react-native-chart-kit": "*",
+    "react-native-gesture-handler": "^1.10.3",
     "react-native-paper": "3.6.0",
+    "react-native-reanimated": "^2.0.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-svg": "12.1.1",
     "react-native-toast-message": "*",
-    "react-navigation": "*"
+    "react-navigation": "*",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -54,6 +60,8 @@
       "json",
       "node"
     ],
-    "transformIgnorePatterns": ["/node_modules/(?!react-native-chart-kit|@react-native|react-native)"]
+    "transformIgnorePatterns": [
+      "/node_modules/(?!@rainbow-me/animated-charts|react-native-reanimated|react-native-gesture-handler|@react-native|react-native)"
+    ]
   }
 }

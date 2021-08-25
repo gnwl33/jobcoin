@@ -6,7 +6,7 @@ import {Colors as c, Layout as l} from '../styles';
 export type InputProps = {
   label: string;
   value: string;
-  handleChange: React.Dispatch<React.SetStateAction<string>>;
+  handleChange: (text: string) => void;
   style?: ViewStyle;
 };
 

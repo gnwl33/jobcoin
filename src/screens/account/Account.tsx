@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   SafeAreaView,
@@ -7,16 +7,17 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   RefreshControl,
-  Platform,
 } from 'react-native';
 import {Button as TextButton} from 'react-native-paper';
 import HistoryGraph from './HistoryGraph';
 import SendWidget from './SendWidget';
 import {Layout as l} from '../../styles';
-import AppContext from '../../utils/AppContext';
 import useFetch from '../../utils/useFetch';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {userUpdated} from '../../features/user/userSlice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {UserInfo, RootStackParamList} from '../../utils/types';
+import {baseURL} from '../../utils/constants';
 
 export type AccountProps = NativeStackScreenProps<
   RootStackParamList,
@@ -24,16 +25,14 @@ export type AccountProps = NativeStackScreenProps<
 >;
 
 const Account = ({navigation}: AccountProps) => {
-  const {user} = useContext(AppContext);
+  const user = useAppSelector(state => state.user.value);
+  const dispatch = useAppDispatch();
+
   const [refreshing, setRefreshing] = useState(false);
 
-  const {data, fetchData} = useFetch<UserInfo>(
-    `http://jobcoin.gemini.com/skyline-departed/api/addresses/${user}`,
-  );
+  const {data, fetchData} = useFetch<UserInfo>(`${baseURL}/addresses/${user}`);
 
   const userInfo = data;
-  const userBalance = userInfo?.balance;
-  const balanceLength = userBalance?.length || 0;
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -41,15 +40,13 @@ const Account = ({navigation}: AccountProps) => {
     setRefreshing(false);
   };
 
-  const viewPadding = Platform.OS === 'ios' ? s.ios : s.android;
-
   return (
-    <SafeAreaView>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        <KeyboardAvoidingView style={[l.center, viewPadding]} behavior="height">
+    <KeyboardAvoidingView behavior="height">
+      <SafeAreaView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
           <View style={[s.container, l.row, l.aICenter, l.wide100]}>
             <Text style={s.greeting}>
               Hi, {user.length < 12 ? user : user.slice(0, 11) + '...'}
@@ -57,26 +54,18 @@ const Account = ({navigation}: AccountProps) => {
             <TextButton
               style={s.signOut}
               onPress={() => {
-                // setUser('');
+                dispatch(userUpdated(''));
                 navigation.navigate('SignIn');
               }}
               mode="text">
               Sign out
             </TextButton>
           </View>
-          <>
-            <Text style={s.balanceLabel}>Jobcoin Balance</Text>
-            <Text testID="balance" style={s.balanceAmount}>
-              {balanceLength < 11
-                ? userBalance
-                : userBalance?.slice(0, 10) + '...'}
-            </Text>
-          </>
           <HistoryGraph userInfo={userInfo} />
           <SendWidget fetchData={fetchData} />
-        </KeyboardAvoidingView>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -101,12 +90,5 @@ const s = StyleSheet.create({
     position: 'absolute',
     top: 5,
     right: 12,
-  },
-  balanceLabel: {
-    fontSize: 21,
-    marginTop: 35,
-  },
-  balanceAmount: {
-    fontSize: 50,
   },
 });

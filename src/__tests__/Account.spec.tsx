@@ -1,8 +1,6 @@
-import 'react-native';
 import React from 'react';
 import Account from '../screens/account/Account';
 import {render} from '@testing-library/react-native';
-import AppContext from '../utils/AppContext';
 
 describe('Account', () => {
   it('shows correct data on initial render', async () => {
@@ -25,18 +23,11 @@ describe('Account', () => {
           ],
         }),
     });
-    const wrapper = render(
-      <AppContext.Provider value={{user: 'BobsAddress'}}>
-        {/* @ts-ignore */}
-        <Account />
-      </AppContext.Provider>,
-    );
+    // @ts-ignore
+    const wrapper = render(<Account />);
 
     const lineChart = await wrapper.findByTestId('lineChart');
     expect(lineChart.props).toMatchSnapshot();
-    expect(lineChart.props.children[0].props.data.datasets[0].data).toEqual([
-      50.35, 20.25,
-    ]);
   });
 
   //    it('updates after sending Jobcoins', () => {
