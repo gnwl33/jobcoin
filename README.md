@@ -10,7 +10,7 @@ Original: https://snack.expo.dev/@gnwl33/jobcoin
 Updated with:
 - TypeScript
 - Redux
-- New chart
+- New chart (Reanimated)
 
 Considered:
 - Formik
